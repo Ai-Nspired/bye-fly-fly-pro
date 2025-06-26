@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fly Bye Bye Pro - Ultrasonic Pest Control</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.7; }
+        }
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        .frequency-display {
+            font-family: 'Courier New', monospace;
+            letter-spacing: 2px;
+        }
+        .waveform {
+            height: 100px;
+            background-size: 20px 100%;
+        }
+        .wave-sine {
+            background: linear-gradient(90deg, rgba(59,130,246,0.1) 50%, transparent 50%);
+            background-size: 20px 100%;
+        }
+        .wave-square {
+            background: linear-gradient(90deg, rgba(59,130,246,0.3) 0%, rgba(59,130,246,0.3) 50%, transparent 50%, transparent 100%);
+            background-size: 20px 100%;
+        }
+        .wave-sawtooth {
+            background: linear-gradient(90deg, rgba(59,130,246,0.1) 0%, rgba(59,130,246,0.3) 100%);
+            background-size: 20px 100%;
+        }
+        .active-wave-sine {
+            background: linear-gradient(90deg, rgba(59,130,246,0.3) 50%, transparent 50%);
+            background-size: 20px 100%;
+            animation: wave 0.5s linear infinite;
+        }
+        .active-wave-square {
+            background: linear-gradient(90deg, rgba(59,130,246,0.5) 0%, rgba(59,130,246,0.5) 50%, transparent 50%, transparent 100%);
+            background-size: 20px 100%;
+            animation: wave 0.5s linear infinite;
+        }
+        .active-wave-sawtooth {
+            background: linear-gradient(90deg, rgba(59,130,246,0.3) 0%, rgba(59,130,246,0.5) 100%);
+            background-size: 20px 100%;
+            animation: wave 0.5s linear infinite;
+        }
+        @keyframes wave {
+            0% { background-position-x: 0; }
+            100% { background-position-x: 20px; }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 min-h-screen flex flex-col">
+    <header class="bg-gray-800 text-white py-6 shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-bug text-2xl"></i>
+                    <h1 class="text-2xl font-bold">Fly Repeller Pro</h1>
+                </div>
+                <div class="hidden md:flex space-x-4">
+                    <a href="#" class="hover:text-gray-200">Home</a>
+                    <a href="#" class="hover:text-gray-200">About</a>
+                    <a href="#" class="hover:text-gray-200">FAQ</a>
+                </div>
+                <button class="md:hidden text-xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto px-4 py-8">
+        <div class="max-w-3xl mx-auto bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+            <div class="p-6 sm:p-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-white">Ultrasonic Fly Repeller</h2>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-sm font-medium text-gray-400">Version 2.1</span>
+                        <i class="fas fa-shield-alt text-green-400"></i>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                    <div class="bg-gray-700 p-4 rounded-lg border border-gray-600">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-bolt text-yellow-400 mr-2"></i>
+                            <h3 class="font-medium text-white">Emitter 1</h3>
+                        </div>
+                        <div class="space-y-2">
+                            <input type="range" min="20000" max="40000" value="20000" step="100" 
+                                class="w-full h-2 bg-gray-600 rounded-lg appearance-none cursor-pointer frequency-slider">
+                            <span class="frequency-display text-xl font-bold text-blue-400">20.0 kHz</span>
+                        </div>
+                        <select class="mt-4 w-full p-2 bg-gray-600 text-white rounded-lg waveform-select">
+                            <option value="sine">Sine Wave</option>
+                            <option value="square">Square Wave</option>
+                            <option value="sawtooth">Sawtooth Wave</option>
+                        </select>
+                        <div class="waveform mt-4 wave-sine"></div>
+                    </div>
+
+                    <div class="bg-gray-700 p-4 rounded-lg border border-gray-600">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-bolt text-yellow-400 mr-2"></i>
+                            <h3 class="font-medium text-white">Emitter 2</h3>
+                        </div>
+                        <div class="space-y-2">
+                            <input type="range" min="20000" max="40000" value="30000" step="100" 
+                                class="w-full h-2 bg-gray-600 rounded-lg appearance-none cursor-pointer frequency-slider">
+                            <span class="frequency-display text-xl font-bold text-blue-400">30.0 kHz</span>
+                        </div>
+                        <select class="mt-4 w-full p-2 bg-gray-600 text-white rounded-lg waveform-select">
+                            <option value="sine">Sine Wave</option>
+                            <option value="square">Square Wave</option>
+                            <option value="sawtooth">Sawtooth Wave</option>
+                        </select>
+                        <div class="waveform mt-4 wave-sine" style="animation-delay: 0.5s;"></div>
+                    </div>
+
+                    <div class="bg-gray-700 p-4 rounded-lg border border-gray-600">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-bolt text-yellow-400 mr-2"></i>
+                            <h3 class="font-medium text-white">Emitter 3</h3>
+                        </div>
+                        <div class="space-y-2">
+                            <input type="range" min="20000" max="40000" value="40000" step="100" 
+                                class="w-full h-2 bg-gray-600 rounded-lg appearance-none cursor-pointer frequency-slider">
+                            <span class="frequency-display text-xl font-bold text-blue-400">40.0 kHz</span>
+                        </div>
+                        <select class="mt-4 w-full p-2 bg-gray-600 text-white rounded-lg waveform-select">
+                            <option value="sine">Sine Wave</option>
+                            <option value="square">Square Wave</option>
+                            <option value="sawtooth">Sawtooth Wave</option>
+                        </select>
+                        <div class="waveform mt-4 wave-sine" style="animation-delay: 1s;"></div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
+                    <div class="flex items-center">
+                        <button id="powerBtn" class="relative w-16 h-8 flex items-center bg-gray-600 rounded-full p-1 transition-colors duration-300">
+                            <div class="w-6 h-6 bg-white rounded-full shadow-md transform translate-x-0 transition-transform duration-300"></div>
+                        </button>
+                        <span class="ml-2 text-gray-300 font-medium" id="powerStatus">OFF</span>
+                    </div>
+                    
+                    <div class="flex space-x-3">
+                        <button id="testBtn" class="py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg flex items-center disabled:opacity-50" disabled>
+                            <i class="fas fa-play mr-2"></i> Test Sound
+                        </button>
+                        <button id="emergencyBtn" class="py-2 px-4 bg-red-600 hover:bg-red-700 text-white rounded-lg flex items-center">
+                            <i class="fas fa-exclamation-triangle mr-2"></i> Emergency Boost
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-3xl mx-auto mt-8 bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+            <div class="p-6">
+                <h2 class="text-xl font-bold text-white mb-4 flex items-center">
+                    <i class="fas fa-chart-bar text-blue-400 mr-2"></i> Frequency Effectiveness Chart
+                </h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-700">
+                        <thead class="bg-gray-700">
+                            <tr>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-400 uppercase">Fly Type</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-400 uppercase">Effective Range</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-400 uppercase">Repel Strength</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-gray-800 divide-y divide-gray-700">
+                            <tr>
+                                <td class="px-4 py-2 text-sm text-gray-300">Common House Fly</td>
+                                <td class="px-4 py-2 text-sm text-gray-300">20-24 kHz</td>
+                                <td class="px-4 py-2">
+                                    <div class="w-full bg-gray-600 rounded-full h-2">
+                                        <div class="bg-green-400 h-2 rounded-full" style="width: 70%"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 text-sm text-gray-300">Fruit Fly</td>
+                                <td class="px-4 py-2 text-sm text-gray-300">25-30 kHz</td>
+                                <td class="px-4 py-2">
+                                    <div class="w-full bg-gray-600 rounded-full h-2">
+                                        <div class="bg-green-400 h-2 rounded-full" style="width: 85%"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 text-sm text-gray-300">Aggressive Biting Fly</td>
+                                <td class="px-4 py-2 text-sm text-gray-300">35-40 kHz</td>
+                                <td class="px-4 py-2">
+                                    <div class="w-full bg-gray-600 rounded-full h-2">
+                                        <div class="bg-red-400 h-2 rounded-full" style="width: 95%"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-6">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-sm mb-2">Fly Bye Bye Pro - Ultrasonic Pest Control Solution</p>
+            <p class="text-xs text-gray-400">Note: Results may vary based on environmental conditions. Not effective against all insect species.</p>
+            <div class="flex justify-center space-x-4 mt-4">
+                <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const powerBtn = document.getElementById('powerBtn');
+            const powerStatus = document.getElementById('powerStatus');
+            const frequencySliders = document.querySelectorAll('.frequency-slider');
+            const waveformSelects = document.querySelectorAll('.waveform-select');
+            const testBtn = document.getElementById('testBtn');
+            const emergencyBtn = document.getElementById('emergencyBtn');
+            
+            let isPoweredOn = false;
+            let audioContext;
+            let oscillators = [];
+            let gainNodes = [];
+
+            // Initialize Web Audio API
+            function initAudio() {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                frequencySliders.forEach((slider, index) => {
+                    gainNodes[index] = audioContext.createGain();
+                    gainNodes[index].gain.value = 0;
+                    gainNodes[index].connect(audioContext.destination);
+                });
+            }
+
+            // Toggle power state
+            powerBtn.addEventListener('click', function() {
+                isPoweredOn = !isPoweredOn;
+
+                if (isPoweredOn) {
+                    if (!audioContext) initAudio();
+
+                    powerBtn.classList.remove('bg-gray-600');
+                    powerBtn.classList.add('bg-green-500');
+                    powerBtn.querySelector('div').classList.remove('translate-x-0');
+                    powerBtn.querySelector('div').classList.add('translate-x-8');
+                    powerStatus.textContent = 'ON';
+                    testBtn.disabled = false;
+
+                    frequencySliders.forEach((slider, index) => {
+                        createOscillator(index, parseInt(slider.value));
+                    });
+                } else {
+                    powerBtn.classList.remove('bg-green-500');
+                    powerBtn.classList.add('bg-gray-600');
+                    powerBtn.querySelector('div').classList.remove('translate-x-8');
+                    powerBtn.querySelector('div').classList.add('translate-x-0');
+                    powerStatus.textContent = 'OFF';
+                    testBtn.disabled = true;
+
+                    oscillators.forEach(oscillator => {
+                        oscillator.stop();
+                    });
+                    oscillators = [];
+                }
+            });
+
+            // Create oscillator with current frequency
+            function createOscillator(index, frequency) {
+                const oscillator = audioContext.createOscillator();
+                oscillator.type = 'sine';
+                oscillator.frequency.value = frequency;
+                oscillator.connect(gainNodes[index]);
+                oscillator.start();
+                oscillators[index] = oscillator;
+
+                // Set volume to 50% for normal operation
+                gainNodes[index].gain.value = 0.5;
+            }
+
+            frequencySliders.forEach((slider, index) => {
+                slider.addEventListener('input', function() {
+                    const freq = parseInt(this.value);
+                    this.nextElementSibling.textContent = `${(freq / 1000).toFixed(1)} kHz`;
+
+                    if (isPoweredOn && oscillators[index]) {
+                        oscillators[index].frequency.value = freq;
+                    }
+                });
+            });
+
+            waveformSelects.forEach((select, index) => {
+                select.addEventListener('change', function() {
+                    const waveform = this.value;
+                    const waveformDiv = this.nextElementSibling.nextElementSibling;
+                    waveformDiv.classList.remove('wave-sine', 'wave-square', 'wave-sawtooth', 'active-wave-sine', 'active-wave-square', 'active-wave-sawtooth');
+                    waveformDiv.classList.add(`wave-${waveform}`);
+                    if (isPoweredOn) {
+                        waveformDiv.classList.add(`active-wave-${waveform}`);
+                    }
+                });
+            });
+
+            // Test button - play a short burst
+            testBtn.addEventListener('click', function() {
+                if (!isPoweredOn) return;
+
+                gainNodes.forEach(gainNode => {
+                    gainNode.gain.value = 0.8;
+                });
+                setTimeout(() => {
+                    gainNodes.forEach(gainNode => {
+                        gainNode.gain.value = 0.5;
+                    });
+                }, 500);
+            });
+
+            // Emergency boost - max frequency and volume for 10 seconds
+            emergencyBtn.addEventListener('click', function() {
+                if (!isPoweredOn) {
+                    powerBtn.click();
+                }
+
+                frequencySliders.forEach((slider, index) => {
+                    const maxFreq = parseInt(slider.max);
+                    slider.value = maxFreq;
+                    slider.nextElementSibling.textContent = `${(maxFreq / 1000).toFixed(1)} kHz`;
+                    oscillators[index].frequency.value = maxFreq;
+                });
+
+                gainNodes.forEach(gainNode => {
+                    gainNode.gain.value = 1.0;
+                });
+
+                setTimeout(() => {
+                    frequencySliders.forEach((slider, index) => {
+                        const originalFreq = parseInt(slider.dataset.originalFreq) || 20000;
+                        slider.value = originalFreq;
+                        slider.nextElementSibling.textContent = `${(originalFreq / 1000).toFixed(1)} kHz`;
+                        oscillators[index].frequency.value = originalFreq;
+                    });
+
+                    gainNodes.forEach(gainNode => {
+                        gainNode.gain.value = 0.5;
+                    });
+                }, 10000);
+            });
+
+            // Update waveform display on power on/off
+            powerBtn.addEventListener('click', function() {
+                const waveformDivs = document.querySelectorAll('.waveform');
+                waveformDivs.forEach(div => {
+                    if (isPoweredOn) {
+                        div.classList.replace('wave-sine', 'active-wave-sine');
+                        div.classList.replace('wave-square', 'active-wave-square');
+                        div.classList.replace('wave-sawtooth', 'active-wave-sawtooth');
+                    } else {
+                        div.classList.replace('active-wave-sine', 'wave-sine');
+                        div.classList.replace('active-wave-square', 'wave-square');
+                        div.classList.replace('active-wave-sawtooth', 'wave-sawtooth');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
